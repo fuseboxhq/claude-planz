@@ -6,6 +6,7 @@ set -e
 
 REPO_URL="${CLAUDE_PLANZ_REPO:-https://raw.githubusercontent.com/fuseboxhq/claude-planz/main}"
 SKILLS_DIR="$HOME/.claude/skills/claude-planz"
+COMMANDS_DIR="$HOME/.claude/commands/claude-planz"
 AGENTS_DIR="$HOME/.claude/agents"
 
 echo "Installing claude-planz..."
@@ -29,22 +30,26 @@ fi
 # Create directories
 echo "Creating directories..."
 mkdir -p "$SKILLS_DIR"
+mkdir -p "$COMMANDS_DIR"
 mkdir -p "$AGENTS_DIR"
 
-# Download skill files
-echo "Downloading skills..."
+# Download skill file (background context)
+echo "Downloading skill..."
 curl -fsSL "$REPO_URL/skills/claude-planz/SKILL.md" -o "$SKILLS_DIR/SKILL.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-init.md" -o "$SKILLS_DIR/cp-init.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-integrate.md" -o "$SKILLS_DIR/cp-integrate.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-new-phase.md" -o "$SKILLS_DIR/cp-new-phase.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-plan.md" -o "$SKILLS_DIR/cp-plan.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-discuss-task.md" -o "$SKILLS_DIR/cp-discuss-task.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-status.md" -o "$SKILLS_DIR/cp-status.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-research.md" -o "$SKILLS_DIR/cp-research.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-close-phase.md" -o "$SKILLS_DIR/cp-close-phase.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-execute.md" -o "$SKILLS_DIR/cp-execute.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-todo.md" -o "$SKILLS_DIR/cp-todo.md"
-curl -fsSL "$REPO_URL/skills/claude-planz/cp-todos.md" -o "$SKILLS_DIR/cp-todos.md"
+
+# Download command files (user-invocable)
+echo "Downloading commands..."
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-init.md" -o "$COMMANDS_DIR/cp-init.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-integrate.md" -o "$COMMANDS_DIR/cp-integrate.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-new-phase.md" -o "$COMMANDS_DIR/cp-new-phase.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-plan.md" -o "$COMMANDS_DIR/cp-plan.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-discuss-task.md" -o "$COMMANDS_DIR/cp-discuss-task.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-status.md" -o "$COMMANDS_DIR/cp-status.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-research.md" -o "$COMMANDS_DIR/cp-research.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-close-phase.md" -o "$COMMANDS_DIR/cp-close-phase.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-execute.md" -o "$COMMANDS_DIR/cp-execute.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-todo.md" -o "$COMMANDS_DIR/cp-todo.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-todos.md" -o "$COMMANDS_DIR/cp-todos.md"
 
 # Download agent
 echo "Downloading agent..."
@@ -54,8 +59,9 @@ echo ""
 echo "claude-planz installed successfully!"
 echo ""
 echo "Installed to:"
-echo "  $SKILLS_DIR/"
-echo "  $AGENTS_DIR/cp-researcher.md"
+echo "  $SKILLS_DIR/SKILL.md (background context)"
+echo "  $COMMANDS_DIR/ (commands)"
+echo "  $AGENTS_DIR/cp-researcher.md (agent)"
 echo ""
 echo "Available commands:"
 echo "  /cp:init                   Initialize Beads + claude-planz in a project"
