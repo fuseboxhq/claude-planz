@@ -38,6 +38,12 @@ Run `bd show $ARGUMENTS` to get the task title, description, and any existing no
 
 If the task doesn't exist, inform the user and exit.
 
+**Also check for codebase context:**
+If `.planning/CODEBASE.md` exists, read it to understand:
+- Existing tech stack (research should align with existing choices)
+- Directory structure (know how the project is organized)
+- Existing patterns (recommendations should follow established conventions)
+
 ### 2. Clarify Research Focus
 
 Before diving into research, ask the user what specifically needs to be figured out.
@@ -196,6 +202,10 @@ Run `bd update $ARGUMENTS --note "Research complete: .planning/research/$ARGUMEN
 
 ### File
 `.planning/research/$ARGUMENTS.md`
+
+### Next Steps
+- Execute the task: `/cp:execute $ARGUMENTS`
+- Or discuss further: `/cp:discuss-task $ARGUMENTS`
 ```
 
 ## Quality Checklist

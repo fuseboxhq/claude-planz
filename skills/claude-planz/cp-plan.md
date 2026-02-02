@@ -49,6 +49,14 @@ Read `.planning/$ARGUMENTS.md` to get:
 
 If status is `complete`, warn user and confirm they want to re-plan.
 
+**Also check for codebase context:**
+If `.planning/CODEBASE.md` exists, read it to understand:
+- Existing tech stack (don't recommend conflicting technologies)
+- Directory structure (know where to put new code)
+- Existing patterns (follow established conventions)
+
+This context should inform your research and task planning.
+
 ### 3. Clarify Requirements (IMPORTANT)
 
 **Before researching, ensure you understand what needs to be built.**
@@ -246,7 +254,7 @@ $ARGUMENTS: [title] (in_progress) - [N] tasks
 - [main pitfall]
 
 ### Next Steps
-1. Start with: [first task id] - [title]
-2. Run: bd show [task-id] for details
+1. Execute the phase: /cp:execute $ARGUMENTS
+2. Or execute one task: /cp:execute [first task id]
 3. Deep research if needed: /cp:research [task-id]
 ```

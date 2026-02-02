@@ -50,8 +50,10 @@ Cannot close phase. Incomplete tasks:
   - [task-id]: [title] (status: [status])
   - [task-id]: [title] (status: [status])
 
-Complete these tasks first:
-  bd update [task-id] --status done
+Options:
+  - Execute remaining tasks: /cp:execute $ARGUMENTS
+  - Execute single task: /cp:execute [task-id]
+  - Mark manually done: bd update [task-id] --status done
 ```
 
 ### 4. Verify Completion Criteria

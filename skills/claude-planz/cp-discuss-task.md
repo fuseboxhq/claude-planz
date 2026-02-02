@@ -117,8 +117,8 @@ Consider updating the task description if it was significantly clarified.
 Task $ARGUMENTS is now clarified.
 
 Options:
-1. Start implementation directly
-2. Run `/cp:research $ARGUMENTS` for technical deep-dive
+1. Execute the task: `/cp:execute $ARGUMENTS`
+2. Run `/cp:research $ARGUMENTS` for technical deep-dive first
 3. Continue discussing other tasks
 
 Ready to proceed?

@@ -213,6 +213,12 @@ bd show <task-id>
 
 Extract the task title, description, and any existing notes.
 
+**Also check for codebase context:**
+If `.planning/CODEBASE.md` exists, read it to understand:
+- Existing tech stack (research should align with existing choices)
+- Directory structure (know how the project is organized)
+- Existing patterns (recommendations should follow established conventions)
+
 ## Step 2: Identify Research Domains
 
 What needs investigating?

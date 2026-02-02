@@ -12,8 +12,10 @@ claude-planz is a lightweight research and planning extension that integrates wi
 
 ```
 .planning/
+├── CODEBASE.md              # Existing codebase context (from /cp:integrate)
 ├── PHASE-01.md              # Phase definition + research + tasks
 ├── PHASE-02.md
+├── TODO.md                  # Quick capture ideas (from /cp:todo)
 ├── research/                # Task-level deep dives
 │   └── bd-xxxx.md
 └── STATE.md                 # Current context (optional)
@@ -25,10 +27,10 @@ claude-planz is a lightweight research and planning extension that integrates wi
 ## Phase Lifecycle
 
 ```
-new-phase → plan → execute tasks → close-phase
-    ↓         ↓         ↓              ↓
- PHASE-XX.md  Research   bd ready    Mark complete
- + Beads epic + Tasks    bd update   Archive
+new-phase → plan → execute → close-phase
+    ↓         ↓        ↓          ↓
+ PHASE-XX.md  Research  /cp:execute  Mark complete
+ + Beads epic + Tasks   implements   Archive
 ```
 
 ## Commands
@@ -36,12 +38,16 @@ new-phase → plan → execute tasks → close-phase
 | Command | Purpose |
 |---------|---------|
 | `/cp:init` | Initialize Beads + `.planning/` directory |
+| `/cp:integrate` | Explore existing codebase and create CODEBASE.md |
 | `/cp:new-phase [title]` | Create PHASE-XX.md + Beads epic |
 | `/cp:plan PHASE-XX` | Clarify requirements, research, create tasks |
+| `/cp:execute <task-id \| PHASE-XX>` | Execute a task or all tasks in a phase |
 | `/cp:discuss-task <task-id>` | Clarify a task through interactive discussion |
 | `/cp:research <task-id>` | Deep research on specific task |
 | `/cp:status` | Show all phases and progress |
 | `/cp:close-phase PHASE-XX` | Mark phase complete |
+| `/cp:todo <description>` | Add item to todo list |
+| `/cp:todos` | View and manage todo list |
 
 ## Philosophy
 
@@ -82,7 +88,9 @@ PHASE-01.md ←→ bd-a3f8 (Beads epic)
 
 | Content | Location |
 |---------|----------|
+| Codebase context | `.planning/CODEBASE.md` |
 | Phase overviews | `.planning/PHASE-XX.md` |
 | Task research | `.planning/research/<task-id>.md` |
 | Project state | `.planning/STATE.md` |
+| Todo list | `.planning/TODO.md` |
 | Task database | `.beads/` |

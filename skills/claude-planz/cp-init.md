@@ -56,11 +56,15 @@ No phases created yet. Run `/cp:new-phase [title]` to create your first phase.
 
 ## Quick Commands
 
+- Map existing codebase: `/cp:integrate`
 - Create phase: `/cp:new-phase [title]`
 - Plan phase: `/cp:plan PHASE-XX`
+- Execute phase: `/cp:execute PHASE-XX`
 - Check status: `/cp:status`
 - Research task: `/cp:research <task-id>`
 - Close phase: `/cp:close-phase PHASE-XX`
+- Add todo: `/cp:todo "idea"`
+- View todos: `/cp:todos`
 ```
 
 ### 5. Create .gitignore
@@ -83,8 +87,13 @@ Created:
   .planning/research/  - Task research documents
   .planning/STATE.md   - Project state tracking
 
-Next steps:
+Next steps (existing codebase):
+  1. Map the codebase: /cp:integrate
+  2. Create your first phase: /cp:new-phase "Your First Phase"
+  3. Plan and execute: /cp:plan PHASE-01 → /cp:execute PHASE-01
+
+Next steps (new project):
   1. Create your first phase: /cp:new-phase "Setup and Configuration"
-  2. Plan the phase: /cp:plan PHASE-01
+  2. Plan and execute: /cp:plan PHASE-01 → /cp:execute PHASE-01
   3. Check status: /cp:status
 ```

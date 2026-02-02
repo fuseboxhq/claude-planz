@@ -95,11 +95,15 @@ Tasks with no blockers:
 
 ## Quick Actions
 
+- Execute a task: `/cp:execute <task-id>`
+- Execute all tasks in phase: `/cp:execute PHASE-XX`
 - Plan a phase: `/cp:plan PHASE-XX`
 - Discuss a task: `/cp:discuss-task <task-id>`
 - Research a task: `/cp:research <task-id>`
 - Close a phase: `/cp:close-phase PHASE-XX`
 - Create new phase: `/cp:new-phase [title]`
+- Add a todo: `/cp:todo "idea"`
+- View todos: `/cp:todos`
 - Mark task done: `bd update <task-id> --status done`
 - See task details: `bd show <task-id>`
 ```
