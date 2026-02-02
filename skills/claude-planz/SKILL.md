@@ -48,6 +48,7 @@ new-phase → plan → execute → close-phase
 | `/cp:close-phase PHASE-XX` | Mark phase complete |
 | `/cp:todo <description>` | Add item to todo list |
 | `/cp:todos` | View and manage todo list |
+| `/cp:update` | Update claude-planz to latest version |
 
 ## Philosophy
 

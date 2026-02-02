@@ -50,6 +50,7 @@ curl -fsSL "$REPO_URL/skills/claude-planz/cp-close-phase.md" -o "$COMMANDS_DIR/c
 curl -fsSL "$REPO_URL/skills/claude-planz/cp-execute.md" -o "$COMMANDS_DIR/cp-execute.md"
 curl -fsSL "$REPO_URL/skills/claude-planz/cp-todo.md" -o "$COMMANDS_DIR/cp-todo.md"
 curl -fsSL "$REPO_URL/skills/claude-planz/cp-todos.md" -o "$COMMANDS_DIR/cp-todos.md"
+curl -fsSL "$REPO_URL/skills/claude-planz/cp-update.md" -o "$COMMANDS_DIR/cp-update.md"
 
 # Download agent
 echo "Downloading agent..."
@@ -75,6 +76,7 @@ echo "  /cp:status                 Show phase progress and ready tasks"
 echo "  /cp:close-phase PHASE-XX   Mark a phase complete"
 echo "  /cp:todo <description>     Add item to todo list"
 echo "  /cp:todos                  View and manage todo list"
+echo "  /cp:update                 Update claude-planz to latest version"
 echo ""
 echo "To get started in a new project:"
 echo "  1. cd your-project"
