@@ -1,5 +1,5 @@
 ---
-name: cp:integrate
+name: integrate
 description: Explore existing codebase and create context for planning
 allowed-tools:
   - Bash

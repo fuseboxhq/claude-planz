@@ -1,5 +1,5 @@
 ---
-name: cp:close-phase
+name: close-phase
 description: Mark a phase as complete and update its status
 argument-hint: <PHASE-XX>
 allowed-tools:

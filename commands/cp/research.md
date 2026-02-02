@@ -1,5 +1,5 @@
 ---
-name: cp:research
+name: research
 description: Clarify research needs, then deep dive on a specific Beads task with verified findings
 argument-hint: <task-id>
 allowed-tools:

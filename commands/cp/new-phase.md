@@ -1,5 +1,5 @@
 ---
-name: cp:new-phase
+name: new-phase
 description: Create a new phase with PHASE-XX.md file and corresponding Beads epic
 argument-hint: <title>
 allowed-tools:

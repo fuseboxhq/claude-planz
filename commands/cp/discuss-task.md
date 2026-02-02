@@ -1,5 +1,5 @@
 ---
-name: cp:discuss-task
+name: discuss-task
 description: Clarify a task's requirements through interactive discussion before implementation
 argument-hint: <task-id>
 allowed-tools:

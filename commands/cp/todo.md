@@ -1,5 +1,5 @@
 ---
-name: cp:todo
+name: todo
 description: Add an item to the todo list for later consideration
 argument-hint: <description>
 allowed-tools:

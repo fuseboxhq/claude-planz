@@ -1,5 +1,5 @@
 ---
-name: cp:execute
+name: execute
 description: Execute a specific task or all tasks in a phase
 argument-hint: <task-id | PHASE-XX>
 allowed-tools:

@@ -1,5 +1,5 @@
 ---
-name: cp:update
+name: update
 description: Update claude-planz to the latest version
 allowed-tools:
   - Bash

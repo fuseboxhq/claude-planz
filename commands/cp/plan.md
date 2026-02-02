@@ -1,5 +1,5 @@
 ---
-name: cp:plan
+name: plan
 description: Clarify requirements, research a phase, break it into tasks, and populate PHASE-XX.md
 argument-hint: <PHASE-XX>
 allowed-tools:

@@ -1,5 +1,5 @@
 ---
-name: cp:init
+name: init
 description: Initialize Beads CLI and claude-planz directories for phase-based planning
 allowed-tools:
   - Bash

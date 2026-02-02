@@ -1,5 +1,5 @@
 ---
-name: cp:status
+name: status
 description: Show all phases, their progress, and ready tasks
 allowed-tools:
   - Bash

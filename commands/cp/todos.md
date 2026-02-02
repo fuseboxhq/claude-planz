@@ -1,5 +1,5 @@
 ---
-name: cp:todos
+name: todos
 description: View and manage the todo list
 allowed-tools:
   - Read
