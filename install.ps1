@@ -104,7 +104,7 @@ Write-Host "Downloading commands..." -ForegroundColor White
 $commands = @(
     "init", "integrate", "new-phase", "plan", "discuss-task",
     "status", "research", "close-phase", "execute",
-    "todo", "todos", "update"
+    "todo", "todos", "update", "quick"
 )
 foreach ($cmd in $commands) {
     Download-File "$RepoUrl/commands/cp/$cmd.md" (Join-Path $CommandsDir "$cmd.md")
@@ -135,6 +135,7 @@ Write-Host "  /cp:close-phase PHASE-XX   Mark a phase complete"
 Write-Host "  /cp:todo <description>     Add item to todo list"
 Write-Host "  /cp:todos                  View and manage todo list"
 Write-Host "  /cp:update                 Update claude-planz to latest version"
+Write-Host "  /cp:quick <description>   Quick task execution without planning"
 Write-Host ""
 Write-Host "To get started in a new project:" -ForegroundColor White
 Write-Host "  1. cd your-project"
