@@ -4,6 +4,14 @@ set -e
 # claude-planz installer
 # Usage: curl -fsSL https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.sh | bash
 
+# Detect WSL and inform Windows users
+if grep -qEi "(microsoft|wsl)" /proc/version 2>/dev/null; then
+    echo "[INFO] WSL detected. This installer works in WSL."
+    echo "       For native Windows (PowerShell), use:"
+    echo "       irm https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.ps1 | iex"
+    echo ""
+fi
+
 REPO_URL="${CLAUDE_PLANZ_REPO:-https://raw.githubusercontent.com/fuseboxhq/claude-planz/main}"
 SKILLS_DIR="$HOME/.claude/skills/claude-planz"
 COMMANDS_DIR="$HOME/.claude/commands/cp"

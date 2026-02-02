@@ -13,44 +13,44 @@ Update claude-planz to the latest version from GitHub.
 
 ## Steps
 
-### 1. Check Current Version
+### 1. Detect Platform
 
-Check if a version file exists:
-```bash
-cat ~/.claude/commands/claude-planz/.version 2>/dev/null || echo "unknown"
-```
+Determine if running on Windows (PowerShell) or Unix (bash).
+
+Check the environment:
+- If `$env:OS` contains "Windows" or `$PSVersionTable` exists → Windows
+- Otherwise → Unix/macOS/Linux
 
 ### 2. Fetch Latest Version Info
 
-Fetch the latest commit info from GitHub:
-```bash
-curl -fsSL https://api.github.com/repos/fuseboxhq/claude-planz/commits/main 2>/dev/null | head -20
+Use WebFetch to get recent commits:
 ```
-
-Or use WebFetch to get the README for changelog info.
+WebFetch: https://api.github.com/repos/fuseboxhq/claude-planz/commits?per_page=5
+Prompt: Extract the commit messages and dates from the last 5 commits
+```
 
 ### 3. Show What's New
 
-If possible, show recent changes:
-- Fetch latest commit messages
-- Show brief summary of updates
+Display recent changes to the user before updating.
 
 ### 4. Run Update
 
-Execute the install script to update all files:
+**For Unix/macOS/Linux/WSL:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.sh | bash
 ```
 
-### 5. Save Version Info
-
-Save the current commit SHA for future comparisons:
-```bash
-COMMIT=$(curl -fsSL https://api.github.com/repos/fuseboxhq/claude-planz/commits/main 2>/dev/null | grep '"sha"' | head -1 | cut -d'"' -f4)
-echo "$COMMIT" > ~/.claude/commands/claude-planz/.version
+**For Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/update.ps1 | iex
 ```
 
-### 6. Report Success
+Note: On Windows, use the Bash tool but execute PowerShell commands:
+```bash
+powershell -Command "irm https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/update.ps1 | iex"
+```
+
+### 5. Report Success
 
 ```markdown
 ## UPDATE COMPLETE
@@ -59,18 +59,23 @@ claude-planz has been updated to the latest version.
 
 ### Files Updated
 - ~/.claude/skills/claude-planz/SKILL.md
-- ~/.claude/commands/claude-planz/cp-*.md
+- ~/.claude/commands/cp/*.md
 - ~/.claude/agents/cp-researcher.md
 
 ### What's New
-[Summary of recent changes if available]
+[Summary of recent changes from step 3]
 
 You may need to restart Claude Code for changes to take full effect.
 ```
 
 ## Quick Update (One-liner)
 
-For users who just want to update without details:
+**macOS/Linux:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/update.ps1 | iex
 ```

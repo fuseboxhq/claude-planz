@@ -4,11 +4,25 @@ A lightweight research and planning extension for Claude Code that integrates wi
 
 ## Install
 
+### macOS / Linux
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.sh | bash
 ```
 
-This installs skills to `~/.claude/skills/claude-planz/` and automatically installs Beads CLI if not present.
+### Windows (PowerShell)
+
+```powershell
+irm https://raw.githubusercontent.com/fuseboxhq/claude-planz/main/install.ps1 | iex
+```
+
+### WSL
+
+Both installers work in WSL. The bash installer will detect WSL and continue normally.
+
+---
+
+This installs skills to `~/.claude/skills/claude-planz/` and attempts to install Beads CLI if not present.
 
 ## Overview
 
