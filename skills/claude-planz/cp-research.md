@@ -1,6 +1,6 @@
 ---
 name: cp:research
-description: Research a Beads task with verified findings, confidence levels, and prescriptive recommendations
+description: Deep research on a specific Beads task with verified findings and confidence levels
 argument-hint: <task-id>
 allowed-tools:
   - Bash
@@ -14,7 +14,7 @@ allowed-tools:
 
 # Research Task: $ARGUMENTS
 
-Research how to implement a Beads task well. Produce verified findings with actionable recommendations.
+Deep research on a specific Beads task. Use this when a task needs more investigation than the phase-level research provided.
 
 ## Philosophy
 
@@ -75,7 +75,7 @@ What needs investigating?
 
 ### 4. Write Research Document
 
-Create `.beads/research/$ARGUMENTS.md`:
+Create `.planning/research/$ARGUMENTS.md`:
 
 ```markdown
 # Research: [Task Title]
@@ -139,7 +139,7 @@ Create `.beads/research/$ARGUMENTS.md`:
 
 ### 5. Update Beads Task
 
-Run `bd update $ARGUMENTS --note "Research complete: .beads/research/$ARGUMENTS.md"`
+Run `bd update $ARGUMENTS --note "Research complete: .planning/research/$ARGUMENTS.md"`
 
 ### 6. Return Summary
 
@@ -161,7 +161,7 @@ Run `bd update $ARGUMENTS --note "Research complete: .beads/research/$ARGUMENTS.
 - [main pitfall]
 
 ### File
-`.beads/research/$ARGUMENTS.md`
+`.planning/research/$ARGUMENTS.md`
 ```
 
 ## Quality Checklist

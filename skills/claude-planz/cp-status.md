@@ -1,87 +1,142 @@
 ---
 name: cp:status
-description: Show phase progress, ready tasks, and recent research/plan documents
+description: Show all phases, their progress, and ready tasks
 allowed-tools:
   - Bash
   - Read
   - Glob
 ---
 
-# Show Project Status
+# Project Status
 
-Display the current state of tasks, phases, and claude-planz documents.
+Display the current state of all phases and tasks.
 
 ## Steps
 
-### 1. Get Ready Tasks
+### 1. Check Initialization
 
-Run `bd ready` to get all tasks with no open blockers. These are the tasks that can be worked on now.
-
-### 2. Get All Tasks
-
-Run `bd list` to get all tasks with their status and parent relationships.
-
-### 3. Group by Phase
-
-Analyze the task list and group tasks by their parent ID (phase/epic). For each phase:
-- Count total tasks
-- Count completed tasks
-- Calculate completion percentage
-- List individual tasks with status
-
-### 4. Find Recent Documents
-
-Check for research and plan documents:
-```bash
-ls -lt .beads/research/*.md 2>/dev/null | head -5
-ls -lt .beads/plans/*.md 2>/dev/null | head -5
+Verify `.planning/` directory exists. If not:
 ```
+claude-planz not initialized. Run /cp:init first.
+```
+
+### 2. List All Phases
+
+Find all phase files:
+```bash
+ls .planning/PHASE-*.md 2>/dev/null | sort -V
+```
+
+For each phase file, read and extract:
+- Phase number and title
+- Status (not_started, in_progress, complete)
+- Beads Epic ID
+- Task count and completion
+
+### 3. Get Task Status from Beads
+
+Run `bd list` to get all tasks.
+
+For each phase, count:
+- Total tasks
+- Completed tasks
+- Blocked tasks
+- Ready tasks (open with no blockers)
+
+### 4. Get Ready Tasks
+
+Run `bd ready` to get tasks that can be worked on now.
 
 ### 5. Display Status
 
-Format the output as:
+Format output:
 
 ```markdown
-## Phase Progress
+# Project Status
 
-### bd-a3f8 - [Phase Title] [2/4 complete]
-  - [x] bd-a3f8.1 Task one (done)
-  - [x] bd-a3f8.2 Task two (done)
-  - [ ] bd-a3f8.3 Task three (READY)
-  - [ ] bd-a3f8.4 Task four (blocked by bd-a3f8.3)
+**Last Updated:** [date]
 
-### bd-b2c1 - [Phase Title] [0/3 complete]
-  - [ ] bd-b2c1.1 First task (READY)
-  - [ ] bd-b2c1.2 Second task
-  - [ ] bd-b2c1.3 Third task
+## Phases
 
-## Ready Tasks
+### PHASE-01: [Title] ██████████░░ 8/10 tasks (in_progress)
+  Epic: bd-a3f8
+  Ready: bd-a3f8.5, bd-a3f8.6
+  Blocked: bd-a3f8.9 (waiting on bd-a3f8.8)
 
-Tasks with no blockers that can be started now:
-- bd-a3f8.3: Task three
-- bd-b2c1.1: First task
+### PHASE-02: [Title] ░░░░░░░░░░░░ 0/5 tasks (not_started)
+  Epic: bd-b2c1
+  Ready: bd-b2c1.1
 
-## Recent Documents
+### PHASE-03: [Title] ████████████ 6/6 tasks (complete)
+  Epic: bd-c3d4
+  Completed: [date]
 
-Research:
-- .beads/research/bd-a3f8.2.md (2 days ago)
-- .beads/research/bd-a3f8.1.md (3 days ago)
+---
 
-Plans:
-- .beads/plans/bd-a3f8.md (3 days ago)
+## Summary
+
+| Status | Count |
+|--------|-------|
+| Complete | 1 |
+| In Progress | 1 |
+| Not Started | 1 |
+| **Total Tasks** | **21** |
+| **Completed** | **14** |
+
+## Ready to Work
+
+Tasks with no blockers:
+
+| ID | Phase | Title | Complexity |
+|----|-------|-------|------------|
+| bd-a3f8.5 | 01 | [title] | Medium |
+| bd-a3f8.6 | 01 | [title] | Low |
+| bd-b2c1.1 | 02 | [title] | High |
 
 ## Quick Actions
 
-- Research a task: /cp:research <task-id>
-- Plan a phase: /cp:plan <phase-id>
-- See task details: bd show <task-id>
-- Mark task done: bd update <task-id> --status done
+- Plan a phase: `/cp:plan PHASE-XX`
+- Research a task: `/cp:research <task-id>`
+- Close a phase: `/cp:close-phase PHASE-XX`
+- Create new phase: `/cp:new-phase [title]`
+- Mark task done: `bd update <task-id> --status done`
+- See task details: `bd show <task-id>`
 ```
 
-If there are no tasks yet, display:
+### 6. Handle Empty State
+
+If no phases exist:
+```markdown
+# Project Status
+
+No phases created yet.
+
+## Get Started
+
+1. Create your first phase:
+   /cp:new-phase "Initial Setup"
+
+2. Plan the phase:
+   /cp:plan PHASE-01
+
+3. Check status again:
+   /cp:status
 ```
-No tasks found. Get started:
-  1. Create a phase: bd create "Phase 1: Setup" -p 0
-  2. Add tasks: bd create "Task description" --parent bd-xxxx
-  3. Run /cp:status again to see progress
+
+### 7. Handle No Tasks Ready
+
+If phases exist but no tasks are ready:
+```markdown
+## Ready to Work
+
+No tasks currently ready.
+
+**Possible reasons:**
+- All tasks are blocked by dependencies
+- All tasks are complete
+- Phases haven't been planned yet
+
+**Actions:**
+- Check blocked tasks: `bd list`
+- Plan a phase: `/cp:plan PHASE-XX`
 ```

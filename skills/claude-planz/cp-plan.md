@@ -1,145 +1,205 @@
 ---
 name: cp:plan
-description: Plan all tasks in a Beads phase by researching approaches and creating implementation strategy
-argument-hint: <phase-id>
+description: Research a phase, break it into tasks, and populate PHASE-XX.md with findings
+argument-hint: <PHASE-XX>
 allowed-tools:
   - Bash
   - WebSearch
   - WebFetch
   - Read
   - Write
+  - Edit
   - Glob
+  - mcp__context7__resolve-library-id
+  - mcp__context7__query-docs
 ---
 
 # Plan Phase: $ARGUMENTS
 
-Create a comprehensive implementation plan for all tasks in a Beads phase/epic.
+Research implementation approaches for a phase and break it down into executable tasks.
+
+## Philosophy
+
+**Your training is stale.** Verify before asserting. Use Context7 and official docs.
+
+**Be prescriptive.** "Use X because..." not "consider X or Y..."
 
 ## Steps
 
-### 1. Get Phase Details
+### 1. Validate Phase Exists
 
-Run `bd show $ARGUMENTS` to get the phase/epic title and description.
+Check that `.planning/$ARGUMENTS.md` exists.
 
-If the phase doesn't exist, inform the user and exit.
-
-### 2. List Phase Tasks
-
-Run `bd list` and filter for tasks that are children of $ARGUMENTS (tasks with IDs like `$ARGUMENTS.1`, `$ARGUMENTS.2`, etc.).
-
-If no child tasks exist, inform the user:
+If not found:
 ```
-No tasks found under phase $ARGUMENTS.
-Create tasks first: bd create "Task description" --parent $ARGUMENTS
+Phase $ARGUMENTS not found.
+Create it first: /cp:new-phase [title]
 ```
 
-### 3. Analyze Each Task
+### 2. Read Phase Context
 
-For each task in the phase:
-1. Run `bd show <task-id>` to get full details
-2. Check if research already exists in `.beads/research/<task-id>.md`
-3. Identify the key implementation challenge
-4. Note any dependencies on other tasks
+Read `.planning/$ARGUMENTS.md` to get:
+- Phase title
+- Beads Epic ID
+- Current status
+- Any existing content
 
-### 4. Quick Research
+If status is `complete`, warn user and confirm they want to re-plan.
 
-For tasks without existing research, perform a quick web search (1-2 queries per task) to understand:
-- Standard implementation approach
-- Common libraries or tools used
-- Estimated complexity
+### 3. Research Phase Implementation
 
-### 5. Determine Execution Order
+**Identify research domains:**
+- What technologies/libraries are needed?
+- What patterns do experts use?
+- What are common pitfalls?
+- What shouldn't be hand-rolled?
 
-Analyze task dependencies and determine the optimal order:
-- Tasks with no dependencies come first
-- Tasks that other tasks depend on come before dependents
-- Independent tasks can be marked for parallel execution
+**Context7 First (for libraries):**
+```
+1. mcp__context7__resolve-library-id
+   libraryName: "[library name]"
 
-### 6. Create Phase Plan
+2. mcp__context7__query-docs
+   libraryId: [resolved ID]
+   query: "[specific question]"
+```
 
-Write the plan to `.beads/plans/$ARGUMENTS.md`:
+**WebSearch for ecosystem questions:**
+- Include current year
+- Cross-verify findings
+- Assign confidence levels (HIGH/MEDIUM/LOW)
+
+### 4. Define Tasks
+
+Break the phase into 3-7 tasks. Each task should be:
+- Completable in one focused session
+- Have clear done criteria
+- Be independently verifiable
+
+For each task:
+- Title (action-oriented)
+- What it accomplishes
+- Complexity (Low/Medium/High)
+- Dependencies on other tasks
+
+### 5. Create Beads Tasks
+
+For each task, create in Beads under the phase epic:
+```bash
+bd create "[Task title]" --parent [epic-id]
+```
+
+If tasks have dependencies:
+```bash
+bd dep add [dependent-task] [dependency-task]
+```
+
+### 6. Update Phase File
+
+Update `.planning/$ARGUMENTS.md` with full content:
 
 ```markdown
-# Phase Plan: [Phase Title]
+# Phase XX: [Title]
 
-**Phase ID:** $ARGUMENTS
-**Date:** [YYYY-MM-DD]
-**Tasks:** [N total]
+**Status:** in_progress
+**Beads Epic:** [epic-id]
+**Created:** [date]
 
-## Overview
+## Objective
 
-[2-3 sentences describing what this phase accomplishes and its role in the larger project]
+[2-3 sentences on what this phase accomplishes and why it matters]
 
-## Prerequisites
+## Research Summary
 
-- [Any setup, dependencies, or prior work needed before starting]
+**Overall Confidence:** [HIGH/MEDIUM/LOW]
 
-## Task Breakdown
+[TL;DR - 2-3 sentences on the recommended approach]
 
-### $ARGUMENTS.1 - [Task Title]
+### Recommended Stack
 
-**Objective:** [What this task accomplishes]
-**Approach:** [How to implement - specific technologies, patterns]
-**Dependencies:** [Other task IDs this depends on, or "None"]
-**Complexity:** [Low / Medium / High]
-**Estimated effort:** [Quick / Standard / Extended]
+| Library | Version | Purpose | Confidence |
+|---------|---------|---------|------------|
+| [name] | [ver] | [why] | [H/M/L] |
 
-**Key steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+### Key Patterns
 
-**Verification:** [How to confirm this task is complete]
+[Brief description of important patterns to follow]
 
----
+### Don't Hand-Roll
 
-[Repeat for each task]
+| Problem | Use Instead | Why |
+|---------|-------------|-----|
+| [X] | [Y] | [edge cases] |
 
-## Execution Order
+### Pitfalls
 
-Recommended sequence for implementing tasks:
+- **[Pitfall]**: [How to avoid]
 
-1. **$ARGUMENTS.1** - [Brief reason, e.g., "Foundation for other tasks"]
-2. **$ARGUMENTS.2** - [Brief reason]
-3. **$ARGUMENTS.3** - [Can run parallel with 2]
+## Tasks
+
+| ID | Title | Status | Complexity | Dependencies |
+|----|-------|--------|------------|--------------|
+| [id] | [title] | open | [L/M/H] | [deps or -] |
 
 ## Technical Decisions
 
-Decisions to make before or during implementation:
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| [What] | [Option] | [Why] |
 
-| Decision | Options | Recommendation | Rationale |
-|----------|---------|----------------|-----------|
-| [Decision 1] | A, B, C | B | [Why] |
-| [Decision 2] | X, Y | X | [Why] |
+## Completion Criteria
 
-## Risks & Mitigations
+- [ ] [Observable criterion 1]
+- [ ] [Observable criterion 2]
+- [ ] [Observable criterion 3]
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
-| [Risk 1] | Medium | High | [How to handle] |
-| [Risk 2] | Low | Medium | [How to handle] |
+## Sources
 
-## Success Criteria
+**HIGH confidence:**
+- [source]
 
-Phase is complete when:
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
-
-## Related Research
-
-- [.beads/research/task-id.md](link) - [Brief description]
+**MEDIUM confidence:**
+- [source]
 ```
 
-### 7. Mark First Task Ready
+### 7. Update STATE.md
 
-Identify the first task with no blockers and note it as ready to start.
+Update `.planning/STATE.md`:
+```markdown
+**Current Phase:** $ARGUMENTS
+**Last Updated:** [date]
 
-### 8. Report to User
+## Active Work
 
-Present a summary:
-- Phase overview
-- Number of tasks and estimated complexity
-- Recommended starting point
-- Any critical decisions needed before starting
-- Link to the full plan document
+$ARGUMENTS: [title] (in_progress) - [N] tasks
+```
+
+### 8. Report Summary
+
+```markdown
+## PHASE PLANNED
+
+**Phase:** $ARGUMENTS - [title]
+**Confidence:** [level]
+**Tasks:** [N]
+
+### Approach
+[1-2 sentence summary]
+
+### Tasks Created
+1. [id]: [title] ([complexity])
+2. [id]: [title] ([complexity])
+...
+
+### Key Decisions
+- [decision 1]
+- [decision 2]
+
+### Watch Out For
+- [main pitfall]
+
+### Next Steps
+1. Start with: [first task id] - [title]
+2. Run: bd show [task-id] for details
+3. Deep research if needed: /cp:research [task-id]
+```

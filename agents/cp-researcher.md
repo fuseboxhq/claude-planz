@@ -62,24 +62,25 @@ bd show <task-id>
 
 2. **Check for existing research:**
 ```bash
-ls .beads/research/<task-id>.md 2>/dev/null
+ls .planning/research/<task-id>.md 2>/dev/null
 ```
 
 3. **Write research output:**
 ```bash
-# Output goes to .beads/research/<task-id>.md
+mkdir -p .planning/research
+# Output goes to .planning/research/<task-id>.md
 ```
 
 4. **Update task with research link:**
 ```bash
-bd update <task-id> --note "Research complete: .beads/research/<task-id>.md"
+bd update <task-id> --note "Research complete: .planning/research/<task-id>.md"
 ```
 
 ## File Location
 
-All research outputs go to: `.beads/research/<task-id>.md`
+All research outputs go to: `.planning/research/<task-id>.md`
 
-This keeps research artifacts alongside the Beads task database for easy discovery.
+This keeps research artifacts in the planning directory alongside phase documents.
 
 </beads_integration>
 
@@ -131,7 +132,7 @@ For each finding:
 
 ## RESEARCH.md Structure
 
-Location: `.beads/research/<task-id>.md`
+Location: `.planning/research/<task-id>.md`
 
 ```markdown
 # Research: {Task Title}

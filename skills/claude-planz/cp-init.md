@@ -1,6 +1,6 @@
 ---
 name: cp:init
-description: Initialize Beads CLI and claude-planz directories in the current project
+description: Initialize Beads CLI and claude-planz directories for phase-based planning
 allowed-tools:
   - Bash
   - Write
@@ -9,7 +9,7 @@ allowed-tools:
 
 # Initialize claude-planz
 
-Set up Beads CLI and claude-planz directories for this project.
+Set up Beads CLI and the `.planning/` directory structure for this project.
 
 ## Steps
 
@@ -19,53 +19,67 @@ Run `which bd` to check if Beads CLI is installed.
 
 If not installed, inform the user:
 ```
-Beads CLI not found. Install with one of:
-  brew install steveyegge/beads/bd
-  npm install -g @beads/bd
-  go install github.com/steveyegge/beads/cmd/bd@latest
+Beads CLI not found. Install with:
+  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
 ```
 
 ### 2. Initialize Beads
 
-If Beads is installed, run:
+If Beads is installed and `.beads/` doesn't exist, run:
 ```bash
 bd init
 ```
 
-This creates the `.beads/` directory with the SQLite database.
+### 3. Create Planning Directory Structure
 
-### 3. Create claude-planz Directories
-
-Create the research and plans directories:
 ```bash
-mkdir -p .beads/research .beads/plans
+mkdir -p .planning/research
 ```
 
-### 4. Create .gitignore (Optional)
+### 4. Create STATE.md
 
-If `.beads/.gitignore` doesn't exist, create it:
+If `.planning/STATE.md` doesn't exist, create it:
+
+```markdown
+# Project State
+
+**Current Phase:** None
+**Last Updated:** [date]
+
+## Active Work
+
+No phases created yet. Run `/cp:new-phase [title]` to create your first phase.
+
+## Quick Commands
+
+- Create phase: `/cp:new-phase [title]`
+- Plan phase: `/cp:plan PHASE-XX`
+- Check status: `/cp:status`
+- Research task: `/cp:research <task-id>`
 ```
-# Beads database (regenerated from issues.jsonl)
-beads.db
-beads.db-shm
-beads.db-wal
+
+### 5. Create .gitignore
+
+If `.planning/.gitignore` doesn't exist:
+```
+# Keep research but ignore temp files
+*.tmp
+*.bak
 ```
 
-### 5. Report Success
+### 6. Report Success
 
-Display:
 ```
 claude-planz initialized!
 
 Created:
-  .beads/           - Beads database directory
-  .beads/research/  - Task research documents
-  .beads/plans/     - Phase planning documents
+  .beads/              - Beads task database
+  .planning/           - Phase planning documents
+  .planning/research/  - Task research documents
+  .planning/STATE.md   - Project state tracking
 
 Next steps:
-  1. Create an epic/phase: bd create "Phase 1: Setup" -p 0
-  2. Add tasks: bd create "Task description" --parent bd-xxxx
-  3. Research a task: /cp:research bd-xxxx
-  4. Plan a phase: /cp:plan bd-xxxx
-  5. Check status: /cp:status
+  1. Create your first phase: /cp:new-phase "Setup and Configuration"
+  2. Plan the phase: /cp:plan PHASE-01
+  3. Check status: /cp:status
 ```
