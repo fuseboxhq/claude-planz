@@ -1,6 +1,6 @@
 ---
 name: cp-researcher
-description: Researches how to implement a task well. Produces verified findings with actionable recommendations in .beads/research/.
+description: Researches how to implement a task well. Produces verified findings with actionable recommendations in .planning/research/.
 tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*
 model: sonnet
 color: cyan
@@ -232,9 +232,9 @@ What needs investigating?
 
 ```bash
 # Ensure directory exists
-mkdir -p .beads/research
+mkdir -p .planning/research
 
-# Write to .beads/research/<task-id>.md
+# Write to .planning/research/<task-id>.md
 ```
 
 Use the output format. Be concise. Be prescriptive.
@@ -242,7 +242,7 @@ Use the output format. Be concise. Be prescriptive.
 ## Step 5: Update Beads Task
 
 ```bash
-bd update <task-id> --note "Research complete: .beads/research/<task-id>.md"
+bd update <task-id> --note "Research complete: .planning/research/<task-id>.md"
 ```
 
 ## Step 6: Return Summary
@@ -265,7 +265,7 @@ bd update <task-id> --note "Research complete: .beads/research/<task-id>.md"
 - {main pitfall}
 
 ### File
-`.beads/research/<task-id>.md`
+`.planning/research/<task-id>.md`
 ```
 
 </execution>

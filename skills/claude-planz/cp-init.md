@@ -50,12 +50,17 @@ If `.planning/STATE.md` doesn't exist, create it:
 
 No phases created yet. Run `/cp:new-phase [title]` to create your first phase.
 
+## Completed Phases
+
+(none yet)
+
 ## Quick Commands
 
 - Create phase: `/cp:new-phase [title]`
 - Plan phase: `/cp:plan PHASE-XX`
 - Check status: `/cp:status`
 - Research task: `/cp:research <task-id>`
+- Close phase: `/cp:close-phase PHASE-XX`
 ```
 
 ### 5. Create .gitignore
