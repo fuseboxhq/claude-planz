@@ -1,6 +1,6 @@
 ---
 name: cp:plan
-description: Research a phase, break it into tasks, and populate PHASE-XX.md with findings
+description: Clarify requirements, research a phase, break it into tasks, and populate PHASE-XX.md
 argument-hint: <PHASE-XX>
 allowed-tools:
   - Bash
@@ -10,17 +10,20 @@ allowed-tools:
   - Write
   - Edit
   - Glob
+  - AskUserQuestion
   - mcp__context7__resolve-library-id
   - mcp__context7__query-docs
 ---
 
 # Plan Phase: $ARGUMENTS
 
-Research implementation approaches for a phase and break it down into executable tasks.
+Clarify requirements, research implementation approaches, and break down into executable tasks.
 
 ## Philosophy
 
-**Your training is stale.** Verify before asserting. Use Context7 and official docs.
+**Understand before building.** Ask questions first. Don't assume requirements.
+
+**Your training is stale.** Verify technical claims. Use Context7 and official docs.
 
 **Be prescriptive.** "Use X because..." not "consider X or Y..."
 
@@ -46,7 +49,51 @@ Read `.planning/$ARGUMENTS.md` to get:
 
 If status is `complete`, warn user and confirm they want to re-plan.
 
-### 3. Research Phase Implementation
+### 3. Clarify Requirements (IMPORTANT)
+
+**Before researching, ensure you understand what needs to be built.**
+
+Use AskUserQuestion to clarify:
+
+**Scope & Objectives:**
+- What is the expected outcome of this phase?
+- What is IN scope vs OUT of scope?
+- Are there dependencies on other phases?
+
+**Constraints:**
+- Any technology constraints (must use X, can't use Y)?
+- Any timeline or resource constraints?
+- Any existing code/patterns to follow?
+
+**Success Criteria:**
+- What does "done" look like for this phase?
+- How will we verify it works correctly?
+- Are there specific acceptance criteria?
+
+**Preferences:**
+- Any approaches you want to explore or avoid?
+- Any specific libraries or tools you prefer?
+
+**Example questions:**
+```
+question: "What is the primary goal of this phase?"
+options:
+  - "Build [specific feature]"
+  - "Fix [specific problem]"
+  - "Refactor [specific component]"
+  - "Other (let me describe)"
+
+question: "Are there any technology constraints?"
+options:
+  - "Must use [specific tech]"
+  - "Prefer [tech] but flexible"
+  - "No constraints - recommend what's best"
+  - "Other constraints"
+```
+
+**Only proceed to research once requirements are clear.**
+
+### 4. Research Phase Implementation
 
 **Identify research domains:**
 - What technologies/libraries are needed?
@@ -69,7 +116,7 @@ If status is `complete`, warn user and confirm they want to re-plan.
 - Cross-verify findings
 - Assign confidence levels (HIGH/MEDIUM/LOW)
 
-### 4. Define Tasks
+### 5. Define Tasks
 
 Break the phase into 3-7 tasks. Each task should be:
 - Completable in one focused session
@@ -82,7 +129,7 @@ For each task:
 - Complexity (Low/Medium/High)
 - Dependencies on other tasks
 
-### 5. Create Beads Tasks
+### 6. Create Beads Tasks
 
 For each task, create in Beads under the phase epic:
 ```bash
@@ -94,7 +141,7 @@ If tasks have dependencies:
 bd dep add [dependent-task] [dependency-task]
 ```
 
-### 6. Update Phase File
+### 7. Update Phase File
 
 Update `.planning/$ARGUMENTS.md` with full content:
 
@@ -162,7 +209,7 @@ Update `.planning/$ARGUMENTS.md` with full content:
 - [source]
 ```
 
-### 7. Update STATE.md
+### 8. Update STATE.md
 
 Update `.planning/STATE.md`:
 ```markdown
@@ -174,7 +221,7 @@ Update `.planning/STATE.md`:
 $ARGUMENTS: [title] (in_progress) - [N] tasks
 ```
 
-### 8. Report Summary
+### 9. Report Summary
 
 ```markdown
 ## PHASE PLANNED

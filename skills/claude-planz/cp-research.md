@@ -1,6 +1,6 @@
 ---
 name: cp:research
-description: Deep research on a specific Beads task with verified findings and confidence levels
+description: Clarify research needs, then deep dive on a specific Beads task with verified findings
 argument-hint: <task-id>
 allowed-tools:
   - Bash
@@ -8,6 +8,7 @@ allowed-tools:
   - WebFetch
   - Read
   - Write
+  - AskUserQuestion
   - mcp__context7__resolve-library-id
   - mcp__context7__query-docs
 ---
@@ -17,6 +18,8 @@ allowed-tools:
 Deep research on a specific Beads task. Use this when a task needs more investigation than the phase-level research provided.
 
 ## Philosophy
+
+**Understand before researching.** Ask what specifically needs to be figured out.
 
 **Your training is stale.** Your knowledge is 6-18 months old. Treat it as hypothesis, not fact.
 
@@ -35,15 +38,46 @@ Run `bd show $ARGUMENTS` to get the task title, description, and any existing no
 
 If the task doesn't exist, inform the user and exit.
 
-### 2. Identify Research Domains
+### 2. Clarify Research Focus
 
-What needs investigating?
-- **Stack:** What libraries/tools?
-- **Patterns:** How do experts structure this?
-- **Pitfalls:** What do people get wrong?
-- **Existing solutions:** What shouldn't be hand-rolled?
+Before diving into research, ask the user what specifically needs to be figured out.
 
-### 3. Research with Verification
+Use AskUserQuestion to understand:
+
+**What's unclear?**
+- Is it about WHAT to use (libraries, tools)?
+- Is it about HOW to implement (patterns, architecture)?
+- Is it about AVOIDING problems (pitfalls, edge cases)?
+- Is it about INTEGRATING with existing code?
+
+**Example questions:**
+```
+question: "What aspect of this task needs research?"
+options:
+  - "Which library/tool to use"
+  - "How to architect the solution"
+  - "What pitfalls to avoid"
+  - "All of the above - full research"
+
+question: "Are there any specific technologies to consider or avoid?"
+options:
+  - "Must work with [existing tech]"
+  - "Prefer [specific library]"
+  - "No constraints - find the best option"
+  - "Other constraints"
+```
+
+**Skip if user already specified:** If the task description or previous discussion makes research focus clear, confirm briefly and proceed.
+
+### 3. Identify Research Domains
+
+Based on clarification, focus on relevant domains:
+- **Stack:** What libraries/tools? (if unclear)
+- **Patterns:** How do experts structure this? (if architectural)
+- **Pitfalls:** What do people get wrong? (if risk-focused)
+- **Existing solutions:** What shouldn't be hand-rolled? (always check)
+
+### 5. Research with Verification
 
 **Context7 First (for libraries):**
 ```
@@ -73,7 +107,7 @@ What needs investigating?
 └─ Single unverified source? → LOW confidence, flag it
 ```
 
-### 4. Write Research Document
+### 6. Write Research Document
 
 Create `.planning/research/$ARGUMENTS.md`:
 
@@ -137,11 +171,11 @@ Create `.planning/research/$ARGUMENTS.md`:
 - [Unverified findings]
 ```
 
-### 5. Update Beads Task
+### 7. Update Beads Task
 
 Run `bd update $ARGUMENTS --note "Research complete: .planning/research/$ARGUMENTS.md"`
 
-### 6. Return Summary
+### 8. Return Summary
 
 ```markdown
 ## RESEARCH COMPLETE

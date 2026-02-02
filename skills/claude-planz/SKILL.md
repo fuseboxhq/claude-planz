@@ -37,10 +37,15 @@ new-phase → plan → execute tasks → close-phase
 |---------|---------|
 | `/cp:init` | Initialize Beads + `.planning/` directory |
 | `/cp:new-phase [title]` | Create PHASE-XX.md + Beads epic |
-| `/cp:plan PHASE-XX` | Research phase, create tasks, populate file |
-| `/cp:close-phase PHASE-XX` | Mark phase complete |
-| `/cp:status` | Show all phases and progress |
+| `/cp:plan PHASE-XX` | Clarify requirements, research, create tasks |
+| `/cp:discuss-task <task-id>` | Clarify a task through interactive discussion |
 | `/cp:research <task-id>` | Deep research on specific task |
+| `/cp:status` | Show all phases and progress |
+| `/cp:close-phase PHASE-XX` | Mark phase complete |
+
+## Philosophy
+
+**Understand before building.** Commands like `/cp:plan`, `/cp:discuss-task`, and `/cp:research` will ask clarifying questions before diving into work. This ensures requirements are clear and reduces rework.
 
 ## Beads CLI Quick Reference
 
