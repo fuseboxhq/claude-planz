@@ -7,6 +7,7 @@ allowed-tools:
   - Write
   - Read
   - Edit
+  - AskUserQuestion
 ---
 
 # Close Phase: $ARGUMENTS

@@ -96,6 +96,7 @@ Tasks with no blockers:
 ## Quick Actions
 
 - Plan a phase: `/cp:plan PHASE-XX`
+- Discuss a task: `/cp:discuss-task <task-id>`
 - Research a task: `/cp:research <task-id>`
 - Close a phase: `/cp:close-phase PHASE-XX`
 - Create new phase: `/cp:new-phase [title]`

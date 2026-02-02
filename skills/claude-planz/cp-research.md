@@ -77,7 +77,7 @@ Based on clarification, focus on relevant domains:
 - **Pitfalls:** What do people get wrong? (if risk-focused)
 - **Existing solutions:** What shouldn't be hand-rolled? (always check)
 
-### 5. Research with Verification
+### 4. Research with Verification
 
 **Context7 First (for libraries):**
 ```
@@ -107,7 +107,7 @@ Based on clarification, focus on relevant domains:
 └─ Single unverified source? → LOW confidence, flag it
 ```
 
-### 6. Write Research Document
+### 5. Write Research Document
 
 Create `.planning/research/$ARGUMENTS.md`:
 
@@ -171,11 +171,11 @@ Create `.planning/research/$ARGUMENTS.md`:
 - [Unverified findings]
 ```
 
-### 7. Update Beads Task
+### 6. Update Beads Task
 
 Run `bd update $ARGUMENTS --note "Research complete: .planning/research/$ARGUMENTS.md"`
 
-### 8. Return Summary
+### 7. Return Summary
 
 ```markdown
 ## RESEARCH COMPLETE
